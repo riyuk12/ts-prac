@@ -29,6 +29,13 @@ function Tasks( {task,filetype,status,description,id}:tasksprop) {
   const [open, setOpen] = useState(false);
   const {state,dispatch}=useData();
 
+  const [complete,setComplete]=useState(false)
+
+  const HandleToggle=()=>{
+    setComplete(prev=>!prev)
+  }
+
+
 
   const deletetasks=(id:Number)=>{
     dispatch({type:"DELETE_TASK",id:id})
@@ -41,9 +48,9 @@ function Tasks( {task,filetype,status,description,id}:tasksprop) {
   return (
 
     <>
-    <ListItemButton onClick={handleClick} sx={{backgroundColor:"#212F3C",marginBlock:"2px"}}>
+    <ListItemButton onClick={handleClick} sx={{backgroundColor:complete?"#2ECC71":"#212F3C",marginBlock:"10px"}}>
         <ListItemIcon>
-          <InboxIcon sx={{backgroundColor:"#1B2631",padding:"2px", borderRadius:2, color:"#EBEDEF",}}/>
+          <InboxIcon sx={{backgroundColor:"#1B2631",padding:"10px", borderRadius:2, color:"#EBEDEF",}}/>
         </ListItemIcon>
         <ListItemText primary={task} />
         {open ? <ExpandLess /> : <ExpandMore />}
@@ -51,33 +58,25 @@ function Tasks( {task,filetype,status,description,id}:tasksprop) {
       <Collapse in={open} timeout="auto" unmountOnExit sx={{backgroundColor:"#212F3C "}}>
         <List component="div" disablePadding>
           <ListItemButton sx={{ pl: 2 }}>
-            <ListItemIcon>
-              <StarBorder />
-            </ListItemIcon>
+            
             <ListItemText primary="description" secondary={description}  />
           </ListItemButton>
         </List>
         <List component="div" disablePadding>
           <ListItemButton sx={{ pl: 2 }}>
-            <ListItemIcon>
-              <StarBorder />
-            </ListItemIcon>
+            
             <ListItemText primary={filetype} />
           </ListItemButton>
         </List>
-        <List component="div" disablePadding>
+        <List component="div" disablePadding onClick={HandleToggle}>
           <ListItemButton sx={{ pl: 2 }}>
-            <ListItemIcon>
-              <StarBorder />
-            </ListItemIcon>
-            <ListItemText primary={status} />
+            
+            <ListItemText primary={complete?"Complete":"Pending"}  />
           </ListItemButton>
         </List>
         <List component="div" disablePadding>
           <ListItemButton sx={{ pl: 2 }}>
-            <ListItemIcon>
-              <StarBorder />
-            </ListItemIcon>
+            
             <ListItemText primary="delete item" onClick={()=>{deletetasks(id)}} />
           </ListItemButton>
         </List>

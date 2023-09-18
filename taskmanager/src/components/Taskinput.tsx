@@ -1,6 +1,8 @@
 import React from 'react'
 import { useForm, SubmitHandler } from "react-hook-form"
 import { useData } from '../datalayer/datalayer'
+import { ClassNames } from '@emotion/react'
+import { TextField } from '@mui/material'
 
 
 
@@ -9,7 +11,7 @@ type submitType=any
 
 function Taskinput() {
     const {state,dispatch}=useData()
-    const {register,handleSubmit}=useForm();
+    const {register,handleSubmit,reset}=useForm();
 
     const submit=(data:submitType)=>{
         dispatch({type:'ADD_TASK',
@@ -18,13 +20,18 @@ function Taskinput() {
         filetype:"txt",
         status:"pending",
         description:data.description})
+        reset()
     } 
 
   return(
-    <form onSubmit={handleSubmit(data=>submit(data))}>
-        <input {...register("taskname")} type="text" placeholder='task title' />
-        <input {...register("description")} type="text" placeholder='task description'/>
-        <input type="submit" />
+    <form onSubmit={handleSubmit(data=>submit(data))} className="form-ctn">
+        <div className="input-container">
+        <TextField id="standard-basic" label="enter Task" variant="standard" {...register("taskname")} />
+        <TextField id="standard-basic" label="enter Task description" variant="standard" {...register("description")} />
+          {/* <input  type="text" placeholder='task title' /> */}
+          {/* <input  type="text" placeholder='task description'/> */}
+          <input type="submit"   className='submit'/>
+        </div>
     </form>
   )
 }

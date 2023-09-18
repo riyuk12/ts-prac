@@ -35,6 +35,8 @@ type Action = {type:'ADD_TASK',
               }|{
                 type:'COMPLETE_TASK',
                 id:Number,
+              }|{
+                type:'DELETE_ALL'
               }
 
 const dataReducer = (state: taskList, action: Action): taskList => {
@@ -51,6 +53,8 @@ const dataReducer = (state: taskList, action: Action): taskList => {
     case 'DELETE_TASK':
       return { ...state, tasks:[...state.tasks.filter(task=>task.id!==action.id)]
        };
+    case 'DELETE_ALL':
+      return{...state,tasks:[]}
 
     // case 'COMPLETE_TASK':
     //   return {...state,tasks:[...state.tasks.map((task)=>{
