@@ -2,6 +2,7 @@ import React from 'react'
 import { useData } from '../datalayer/datalayer'
 import Tasks from './Tasks'
 
+
 import ListSubheader from '@mui/material/ListSubheader';
 import List from '@mui/material/List';
 import ListItemButton from '@mui/material/ListItemButton';
@@ -16,6 +17,7 @@ import ExpandMore from '@mui/icons-material/ExpandMore';
 import StarBorder from '@mui/icons-material/StarBorder';
 
 function Tasklist() {
+  
 
     const {state,dispatch}=useData()
   return (
@@ -30,7 +32,7 @@ function Tasklist() {
         </ListSubheader>
       }
     >
-    {state.tasks.map(task=>(<div className='taskcontainer'><Tasks task={task.task} filetype={task.filetype} status={task.status} description={task.description}/></div>))}
+    {state.tasks.map(task=>(<div className='taskcontainer' ><Tasks task={task.task} filetype={task.filetype} status={task.status} description={task.description} id={task.id}/></div>))}
       </List>
     </>
   )

@@ -9,17 +9,12 @@ import Taskinput from './components/Taskinput'
 function App() {
   const {state,dispatch}=useData();
 
-
-  const deletetasks=()=>{
-    dispatch({type:"DELETE_TASK",id:0})
-  }
-
   console.log(state);
   return (
     <>
     <Taskinput />
     <Tasklist/>
-      
+    
     </>
   )
 }
