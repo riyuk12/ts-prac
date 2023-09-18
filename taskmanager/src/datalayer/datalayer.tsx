@@ -1,10 +1,11 @@
 import React,{createContext,useContext,useReducer,ReactNode,Dispatch} from 'react'
 
-type task={
+export type task={
   task:String,
   id:Number,
   filetype:String,
-  status:"pending"|"complete"
+  status:"pending"|"complete",
+  description:String
 }
 
 type taskList={
@@ -28,9 +29,13 @@ type Action = {type:'ADD_TASK',
               id:Number,
               filetype:String,
               status:"pending"|"complete"
+              description:String
               }|{type:'DELETE_TASK',
-              id:Number  
-            };
+                id:Number  
+              }|{
+                type:'COMPLETE_TASK',
+                id:Number,
+              }
 
 const dataReducer = (state: taskList, action: Action): taskList => {
   switch (action.type) {
@@ -39,12 +44,21 @@ const dataReducer = (state: taskList, action: Action): taskList => {
         task:action.task,
         id:action.id,
         filetype:action.filetype,
-        status:"pending"
+        status:"pending",
+        description:action.description
       }] };
     
     case 'DELETE_TASK':
       return { ...state, tasks:[...state.tasks.filter(task=>task.id!==action.id)]
        };
+
+    // case 'COMPLETE_TASK':
+    //   return {...state,tasks:[...state.tasks.map((task)=>{
+    //     if(task.id===action.id){
+    //       task.status="complete"
+    //       return()
+    //     }
+    //   })]}
     
     default:
       return state;
